@@ -20,8 +20,10 @@ const (
 )
 
 type Board struct {
-	Board [10][10]int
-	White bool
+	Board  [10][10]int
+	White  bool
+	Move2W bool
+	Move2B bool
 }
 
 func NewBoard() *Board {
@@ -75,14 +77,22 @@ func MoveMaker(b *Board, mFX, mFY, mHX, mHY int, pieces int) (*Board, bool) {
 				} else if Pawn == b.Board[mFX][2] && mHY-mFY > 1 && mHY-mFY < 3 && b.Board[mFX][mHY] == 0 && mFX == mHX && b.Board[mFX][mHY-1] == 0 {
 					MoveWhite = true
 					CanMove = true
+					b.Move2W = true
 				} else if b.Board[mHX][mHY] < 0 && mHY-mFY == 1 && math.Abs(float64(mHX)-float64(mFX)) == 1 {
 					MoveWhite = true
 					CanMove = true
+				} else if b.Move2B == true && b.Board[mFX][5] == Pawn && mHY-mFY < 2 && math.Abs(float64(mHX)-float64(mFX)) == 1 && mHY-mFY > 0 {
+					MoveWhite = true
+					CanMove = true
+					b.Board[mHX][mHY-1] = Empty
 				} else {
 
 					CanMove = false
 				}
 
+			}
+			if CanMove {
+				b.Move2B = false
 			}
 
 		} else {
@@ -92,16 +102,25 @@ func MoveMaker(b *Board, mFX, mFY, mHX, mHY int, pieces int) (*Board, bool) {
 				if mFY-mHY < 2 && mFY-mHY > 0 && PawnE != b.Board[mFX][7] && mFX == mHX && b.Board[mFX][mHY] == 0 {
 					MoveWhite = false
 					CanMove = true
-				} else if Pawn == b.Board[mFX][7] && mFY-mHY > 1 && mFY-mHY < 3 && b.Board[mFX][mHY] == 0 && mFX == mHX && b.Board[mFX][mHY+1] == 0 {
+				} else if PawnE == b.Board[mFX][7] && mFY-mHY > 1 && mFY-mHY < 3 && b.Board[mFX][mHY] == 0 && mFX == mHX && b.Board[mFX][mHY+1] == 0 {
 					MoveWhite = false
 					CanMove = true
+					b.Move2B = true
 				} else if b.Board[mHX][mHY] > 0 && mFY-mHY == 1 && math.Abs(float64(mFX)-float64(mHX)) == 1 {
 					MoveWhite = false
 					CanMove = true
+				} else if b.Move2W == true && b.Board[mFX][4] == PawnE && mFY-mHY < 2 && math.Abs(float64(mFX)-float64(mHX)) == 1 && mFY-mHY > 0 {
+					b.Board[mHX][mHY+1] = Empty
+					MoveWhite = false
+					CanMove = true
+
 				} else {
 					CanMove = false
 				}
 
+			}
+			if CanMove {
+				b.Move2W = false
 			}
 
 		}
