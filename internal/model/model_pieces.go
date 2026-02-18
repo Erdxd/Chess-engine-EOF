@@ -1,5 +1,7 @@
 package model
 
+import "math"
+
 const (
 	Empty  = 0
 	Pawn   = 100
@@ -55,24 +57,72 @@ func InitPieces(b *Board) *Board {
 
 	return b
 }
-func PawnMove(b *Board, mFX, mFY, mHX, mHY int) (*Board, bool) {
+func MoveMaker(b *Board, mFX, mFY, mHX, mHY int, pieces int) (*Board, bool) {
+	var MoveWhite bool
+	var CanMove bool
 
-	if b.White == true {
-		if b.Board[mHX][mHY] > 0 || b.Board[mHX][mHY] == 99 {
-			return b, false
+	switch {
+	case pieces == Pawn || pieces == PawnE:
+
+		if b.White == true {
+			if b.Board[mHX][mHY] > 0 || b.Board[mHX][mHY] == 99 {
+				CanMove = false
+			} else {
+				if mHY-mFY < 2 && mHY-mFY > 0 && Pawn != b.Board[mFX][2] && mFX == mHX && b.Board[mFX][mHY] == 0 {
+					MoveWhite = true
+					CanMove = true
+
+				} else if Pawn == b.Board[mFX][2] && mHY-mFY > 1 && mHY-mFY < 3 && b.Board[mFX][mHY] == 0 && mFX == mHX && b.Board[mFX][mHY-1] == 0 {
+					MoveWhite = true
+					CanMove = true
+				} else if b.Board[mHX][mHY] < 0 && mHY-mFY == 1 && math.Abs(float64(mHX)-float64(mFX)) == 1 {
+					MoveWhite = true
+					CanMove = true
+				} else {
+
+					CanMove = false
+				}
+
+			}
+
 		} else {
-			b.Board[mHX][mHY] = b.Board[mFX][mFY]
-			b.Board[mFX][mFY] = 0
+			if b.Board[mHX][mHY] < 0 || b.Board[mHX][mHY] == 99 {
+				CanMove = false
+			} else {
+				if mFY-mHY < 2 && mFY-mHY > 0 && PawnE != b.Board[mFX][7] && mFX == mHX && b.Board[mFX][mHY] == 0 {
+					MoveWhite = false
+					CanMove = true
+				} else if Pawn == b.Board[mFX][7] && mFY-mHY > 1 && mFY-mHY < 3 && b.Board[mFX][mHY] == 0 && mFX == mHX && b.Board[mFX][mHY+1] == 0 {
+					MoveWhite = false
+					CanMove = true
+				} else if b.Board[mHX][mHY] > 0 && mFY-mHY == 1 && math.Abs(float64(mFX)-float64(mHX)) == 1 {
+					MoveWhite = false
+					CanMove = true
+				} else {
+					CanMove = false
+				}
+
+			}
+
 		}
-		b.White = false
-	} else {
-		if b.Board[mHX][mHY] < 0 || b.Board[mHX][mHY] == 99 {
-			return b, false
-		} else {
-			b.Board[mHX][mHY] = b.Board[mFX][mFY]
-			b.Board[mFX][mFY] = 0
-		}
-		b.White = true
+	case pieces == King || pieces == KingE:
+
 	}
-	return b, true
+	if CanMove {
+
+		if MoveWhite {
+			b.Board[mHX][mHY] = b.Board[mFX][mFY]
+			b.Board[mFX][mFY] = 0
+			b.White = false
+			return b, true
+		} else {
+			b.Board[mHX][mHY] = b.Board[mFX][mFY]
+			b.Board[mFX][mFY] = 0
+			b.White = true
+			return b, true
+		}
+	} else {
+		return b, false
+	}
+
 }
