@@ -42,7 +42,7 @@ func InitPieces(b *Board) *Board {
 	RowHeavypieces := []int{Rook, Knight, Bishop, Queen, King, Bishop, Knight, Rook}
 	RowHeavypiecesE := []int{RookE, KnightE, BishopE, QueenE, KingE, BishopE, KnightE, RookE}
 
-	for i := 0; i <= 0; i++ {
+	for i := 1; i <= 8; i++ {
 		b.Board[2][i] = Pawn
 		b.Board[7][i] = PawnE
 	}
@@ -54,4 +54,25 @@ func InitPieces(b *Board) *Board {
 	}
 
 	return b
+}
+func PawnMove(b *Board, mFX, mFY, mHX, mHY int) (*Board, bool) {
+
+	if b.White == true {
+		if b.Board[mHX][mHY] > 0 || b.Board[mHX][mHY] == 99 {
+			return b, false
+		} else {
+			b.Board[mHX][mHY] = b.Board[mFX][mFY]
+			b.Board[mFX][mFY] = 0
+		}
+		b.White = false
+	} else {
+		if b.Board[mHX][mHY] < 0 || b.Board[mHX][mHY] == 99 {
+			return b, false
+		} else {
+			b.Board[mHX][mHY] = b.Board[mFX][mFY]
+			b.Board[mFX][mFY] = 0
+		}
+		b.White = true
+	}
+	return b, true
 }
