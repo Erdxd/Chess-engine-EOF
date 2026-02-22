@@ -124,8 +124,31 @@ func MoveMaker(b *Board, mFX, mFY, mHX, mHY int, pieces int) (*Board, bool) {
 			}
 
 		}
-	case pieces == King || pieces == KingE:
+	case pieces == Knight || pieces == KnightE:
+		dy := math.Abs(float64(mHY) - float64(mFY))
+		dx := math.Abs(float64(mHX) - float64(mFX))
+		if (dx == 1 && dy == 2) || (dx == 2 && dy == 1) {
+			if b.White {
 
+				if b.Board[mHX][mHY] == 99 || b.Board[mHX][mHY] > 0 {
+					CanMove = false
+				} else {
+					CanMove = true
+					MoveWhite = true
+				}
+
+				b.White = false
+			} else {
+				if b.Board[mHX][mHY] == 99 || b.Board[mHX][mHY] < 0 {
+					CanMove = false
+				} else {
+					CanMove = true
+					MoveWhite = false
+				}
+
+				b.White = true
+			}
+		}
 	}
 	if CanMove {
 
