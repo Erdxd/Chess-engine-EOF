@@ -149,7 +149,88 @@ func MoveMaker(b *Board, mFX, mFY, mHX, mHY int, pieces int) (*Board, bool) {
 				b.White = true
 			}
 		}
+	case pieces == Rook || pieces == RookE:
+		if b.White {
+			if b.Board[mHX][mHY] == 99 || b.Board[mHX][mHY] > 0 {
+				CanMove = false
+				MoveWhite = true
+			} else {
+				var stepY int
+				var stepX int
+
+				ClearPath := true
+				if mHY > mFY && mFX == mHX {
+					stepY = 1
+				} else if mHY == mFY && mHX > mFX {
+					stepX = 1
+				} else if mHY == mFY && mFX > mHX {
+					stepX = -1
+				} else if mHY < mFY && mFX == mHX {
+					stepY = -1
+				}
+				currX := mFX + stepX
+				currY := mFY + stepY
+				for currX != mHX || currY != mHY {
+					if b.Board[currX][currY] != 0 {
+						ClearPath = false
+						break
+					}
+					currX += stepX
+					currY += stepY
+				}
+				if b.Board[mHX][mHY] < 0 && ClearPath == true {
+
+					CanMove = true
+					MoveWhite = true
+				} else if ClearPath == true {
+					CanMove = true
+					MoveWhite = true
+				}
+
+			}
+			b.White = false
+		} else {
+			if b.Board[mHX][mHY] == 99 || b.Board[mHX][mHY] < 0 {
+				CanMove = false
+				MoveWhite = false
+			} else {
+				var stepY int
+				var stepX int
+
+				ClearPath := true
+				if mHY > mFY && mFX == mHX {
+					stepY = 1
+				} else if mHY == mFY && mHX > mFX {
+					stepX = 1
+				} else if mHY == mFY && mFX > mHX {
+					stepX = -1
+				} else if mHY < mFY && mFX == mHX {
+					stepY = -1
+				}
+				currX := mFX + stepX
+				currY := mFY + stepY
+				for currX != mHX || currY != mHY {
+					if b.Board[currX][currY] != 0 {
+						ClearPath = false
+						break
+					}
+					currX += stepX
+					currY += stepY
+				}
+				if b.Board[mHX][mHY] < 0 && ClearPath == true {
+
+					CanMove = true
+					MoveWhite = false
+				} else if ClearPath == true {
+					CanMove = true
+					MoveWhite = false
+				}
+				b.White = true
+			}
+
+		}
 	}
+
 	if CanMove {
 
 		if MoveWhite {
