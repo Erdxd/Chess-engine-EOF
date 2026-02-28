@@ -11,5 +11,5 @@ type PiecesMove struct {
 	MFY    int
 	MHX    int
 	MHY    int
-	pieces int
+	Pieces int
 }
