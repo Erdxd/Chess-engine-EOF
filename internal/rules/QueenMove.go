@@ -5,7 +5,7 @@ import (
 	"math"
 )
 
-func QueenMove(b model.Board, p model.PiecesMove) (bool, bool) {
+func QueenMove(b *model.Board, p *model.PiecesMove) (bool, bool) {
 	CanMove := true
 	MoveWhite := false
 	if b.White {

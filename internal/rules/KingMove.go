@@ -5,7 +5,7 @@ import (
 	"math"
 )
 
-func KingMove(b model.Board, p model.PiecesMove) (bool, bool) {
+func KingMove(b *model.Board, p *model.PiecesMove) (bool, bool) {
 	CanMove := false
 	MoveWhite := true
 	dx := math.Abs(float64(p.MFX) - float64(p.MHX))

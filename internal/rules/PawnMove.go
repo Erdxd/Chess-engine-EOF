@@ -6,7 +6,7 @@ import (
 	"math"
 )
 
-func PawnMove(b model.Board, p model.PiecesMove) (bool, bool) {
+func PawnMove(b *model.Board, p *model.PiecesMove) (bool, bool) {
 	CanMove := false
 	MoveWhite := false
 	if b.White == true {
