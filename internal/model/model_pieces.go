@@ -278,6 +278,186 @@ func MoveMaker(b *Board, mFX, mFY, mHX, mHY int, pieces int) (*Board, bool) {
 
 			}
 		}
+	case pieces == Queen || pieces == QueenE:
+		if b.White {
+			if b.Board[mHX][mHY] == 99 || b.Board[mHX][mHY] > 0 {
+				CanMove = false
+				MoveWhite = true
+			} else {
+				if math.Abs(float64(mHX)-float64(mFX)) == math.Abs(float64(mHY)-float64(mFY)) {
+
+					var stepY int
+					var stepX int
+
+					ClearPath := true
+					// вверх налево
+					if mHY > mFY && mFX > mHX {
+						stepY = 1
+						stepX = -1
+
+					} else if mHY > mFY && mHX > mFX { // вверх направо
+						stepX = 1
+						stepY = 1
+					} else if mHY < mFY && mHX < mFX { // вниз влево
+						stepX = -1
+						stepY = -1
+					} else if mFY > mHY && mFX < mHX { //вниз направо
+						stepY = -1
+						stepX = 1
+					}
+					currX := mFX + stepX
+					currY := mFY + stepY
+					for currX != mHX || currY != mHY {
+						if b.Board[currX][currY] != 0 {
+							ClearPath = false
+							break
+						}
+						currX += stepX
+						currY += stepY
+					}
+					if b.Board[mHX][mHY] < 0 && ClearPath == true {
+
+						CanMove = true
+						MoveWhite = true
+					} else if ClearPath == true {
+						CanMove = true
+						MoveWhite = true
+					}
+
+				} else if math.Abs(float64(mHX)-float64(mFX)) != math.Abs(float64(mHY)-float64(mFY)) {
+					var stepY int
+					var stepX int
+
+					ClearPath := true
+					if mHY > mFY && mFX == mHX {
+						stepY = 1
+					} else if mHY == mFY && mHX > mFX {
+						stepX = 1
+					} else if mHY == mFY && mFX > mHX {
+						stepX = -1
+					} else if mHY < mFY && mFX == mHX {
+						stepY = -1
+					}
+					currX := mFX + stepX
+					currY := mFY + stepY
+					for currX != mHX || currY != mHY {
+						if b.Board[currX][currY] != 0 {
+							ClearPath = false
+							break
+						}
+						currX += stepX
+						currY += stepY
+					}
+					if b.Board[mHX][mHY] < 0 && ClearPath == true {
+
+						CanMove = true
+						MoveWhite = true
+					} else if ClearPath == true {
+						CanMove = true
+						MoveWhite = true
+					}
+				}
+			}
+
+		} else {
+			if b.Board[mHX][mHY] == 99 || b.Board[mHX][mHY] < 0 {
+				CanMove = false
+				MoveWhite = false
+			}
+			if math.Abs(float64(mHX)-float64(mFX)) == math.Abs(float64(mHY)-float64(mFY)) {
+
+				var stepY int
+				var stepX int
+
+				ClearPath := true
+				// вверх налево
+				if mHY > mFY && mFX > mHX {
+					stepY = 1
+					stepX = -1
+
+				} else if mHY > mFY && mHX > mFX { // вверх направо
+					stepX = 1
+					stepY = 1
+				} else if mHY < mFY && mHX < mFX { // вниз влево
+					stepX = -1
+					stepY = -1
+				} else if mFY > mHY && mFX < mHX { //вниз направо
+					stepY = -1
+					stepX = 1
+				}
+				currX := mFX + stepX
+				currY := mFY + stepY
+				for currX != mHX || currY != mHY {
+					if b.Board[currX][currY] != 0 {
+						ClearPath = false
+						break
+					}
+					currX += stepX
+					currY += stepY
+				}
+				if b.Board[mHX][mHY] < 0 && ClearPath == true {
+
+					CanMove = true
+					MoveWhite = false
+				} else if ClearPath == true {
+					CanMove = true
+					MoveWhite = false
+				}
+
+			} else if math.Abs(float64(mHX)-float64(mFX)) != math.Abs(float64(mHY)-float64(mFY)) {
+				var stepY int
+				var stepX int
+
+				ClearPath := true
+				if mHY > mFY && mFX == mHX {
+					stepY = 1
+				} else if mHY == mFY && mHX > mFX {
+					stepX = 1
+				} else if mHY == mFY && mFX > mHX {
+					stepX = -1
+				} else if mHY < mFY && mFX == mHX {
+					stepY = -1
+				}
+				currX := mFX + stepX
+				currY := mFY + stepY
+				for currX != mHX || currY != mHY {
+					if b.Board[currX][currY] != 0 {
+						ClearPath = false
+						break
+					}
+					currX += stepX
+					currY += stepY
+				}
+				if b.Board[mHX][mHY] < 0 && ClearPath == true {
+
+					CanMove = true
+					MoveWhite = false
+				} else if ClearPath == true {
+					CanMove = true
+					MoveWhite = false
+				}
+			}
+		}
+	case pieces == King || pieces == KingE:
+		dx := math.Abs(float64(mFX) - float64(mHX))
+		dy := math.Abs(float64(mFY) - float64(mHY))
+		if b.White == true {
+			if b.Board[mHX][mHY] == 99 || b.Board[mHX][mHY] > 0 {
+				CanMove = false
+				MoveWhite = true
+			} else if (dx == 1 || dy == 1) && (dx < 2 && dy < 2) {
+				CanMove = true
+				MoveWhite = false
+			}
+		} else {
+			if b.Board[mHX][mHY] == 99 || b.Board[mHX][mHY] < 0 {
+				CanMove = false
+				MoveWhite = true
+			} else if dx == 1 && dy == 1 {
+				CanMove = true
+				MoveWhite = false
+			}
+		}
 	}
 
 	if CanMove {
