@@ -7,9 +7,9 @@ type Board struct {
 	Move2B bool
 }
 type PiecesMove struct {
-	MFX    int
-	MFY    int
-	MHX    int
-	MHY    int
-	Pieces int
+	MFX   int
+	MFY   int
+	MHX   int
+	MHY   int
+	Piece int
 }

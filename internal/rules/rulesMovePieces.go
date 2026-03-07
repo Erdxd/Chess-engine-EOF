@@ -8,9 +8,9 @@ import (
 func LogicOfMovePieces(b *model.Board, p *model.PiecesMove) (bool, bool) {
 	var CanMove bool
 	var WhiteMove bool
-	switch p.Pieces {
+	switch p.Piece {
 	case pieces.Pawn, pieces.PawnE:
-		CanMove, WhiteMove = PawnMove(b, p)
+		CanMove, WhiteMove = PawnMoveGenerate(b, p)
 		return CanMove, WhiteMove
 	case pieces.Knight, pieces.KnightE:
 		CanMove, WhiteMove = KnightMove(b, p)
