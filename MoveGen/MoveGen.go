@@ -15,16 +15,18 @@ func GenerateMoves(b *model.Board) []model.PiecesMove {
 			if piece == 0 || !pieces.MyPiece(*b, piece) {
 				continue
 			}
-			switch p.Piece {
+			switch piece {
 			case pieces.Pawn, pieces.PawnE:
-				CanMove, WhiteMove = rules.PawnMoveGenerate(b, &model.PiecesMove{})
-				return
+				MovesPawn := PawnMoveGenerate(b, x, y)
+
+				moves = append(moves, MovesPawn...)
+
 			case pieces.Knight, pieces.KnightE:
 				CanMove, WhiteMove = rules.KnightMove(b, &model.PiecesMove{})
 				return
 			case pieces.Bishop, pieces.BishopE:
-				CanMove, WhiteMove = rules.BishopMove(b, &model.PiecesMove{})
-				return
+				movesBishop := BishopMoveGen(b, x, y)
+				moves = append(moves, movesBishop...)
 			case pieces.Rook, pieces.RookE:
 				CanMove, WhiteMove = rules.RookMove(b, &model.PiecesMove{})
 				return
