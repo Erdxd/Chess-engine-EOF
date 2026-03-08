@@ -28,14 +28,13 @@ func GenerateMoves(b *model.Board) []model.PiecesMove {
 				movesBishop := BishopMoveGen(b, x, y)
 				moves = append(moves, movesBishop...)
 			case pieces.Rook, pieces.RookE:
-				CanMove, WhiteMove = rules.RookMove(b, &model.PiecesMove{})
-				return
+				MovesRook := RookMoveGen(b, x, y)
+				moves = append(moves, MovesRook...)
 			case pieces.Queen, pieces.QueenE:
-				CanMove, WhiteMove = rules.QueenMove(b, &model.PiecesMove{})
-				return
+				MovesQueen := QueenMoveGen(b, x, y)
+				moves = append(moves, MovesQueen...)
 			case pieces.King, pieces.KingE:
 				CanMove, WhiteMove = rules.KingMove(b, &model.PiecesMove{})
-				return
 			}
 
 		}
