@@ -9,5 +9,6 @@ func KnightMoveGen(b *model.Board, x, y int) []model.PiecesMove {
 	} else {
 
 	}
+
 	return Moves
 }
