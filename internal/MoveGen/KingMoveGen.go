@@ -2,7 +2,7 @@ package movegen
 
 import "ChessEngineEOF/internal/model"
 
-func KingMoveGen(b *model.Board, x, y int) []model.PiecesMove {
+func KingMoveGen(b *model.BoardP, x, y int) []model.PiecesMove {
 	Moves := []model.PiecesMove{}
 	if b.White {
 		forminusminus(&Moves, x, y, b, 1)

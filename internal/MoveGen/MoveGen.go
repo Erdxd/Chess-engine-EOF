@@ -3,10 +3,9 @@ package movegen
 import (
 	"ChessEngineEOF/internal/model"
 	"ChessEngineEOF/internal/pieces"
-	"ChessEngineEOF/internal/rules"
 )
 
-func GenerateMoves(b *model.Board) []model.PiecesMove {
+func GenerateMoves(b *model.BoardP) []model.PiecesMove {
 
 	moves := []model.PiecesMove{}
 	for x := 1; x <= 8; x++ {
@@ -22,8 +21,8 @@ func GenerateMoves(b *model.Board) []model.PiecesMove {
 				moves = append(moves, MovesPawn...)
 
 			case pieces.Knight, pieces.KnightE:
-				CanMove, WhiteMove = rules.KnightMove(b, &model.PiecesMove{})
-				return
+				MovesKnight := KnightMoveGen(b, x, y)
+				moves = append(moves, MovesKnight...)
 			case pieces.Bishop, pieces.BishopE:
 				movesBishop := BishopMoveGen(b, x, y)
 				moves = append(moves, movesBishop...)
@@ -34,9 +33,11 @@ func GenerateMoves(b *model.Board) []model.PiecesMove {
 				MovesQueen := QueenMoveGen(b, x, y)
 				moves = append(moves, MovesQueen...)
 			case pieces.King, pieces.KingE:
-				CanMove, WhiteMove = rules.KingMove(b, &model.PiecesMove{})
+				MovesKing := KingMoveGen(b, x, y)
+				moves = append(moves, MovesKing...)
 			}
 
 		}
 	}
+	return moves
 }

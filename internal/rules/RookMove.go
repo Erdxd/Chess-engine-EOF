@@ -2,7 +2,7 @@ package rules
 
 import "ChessEngineEOF/internal/model"
 
-func RookMove(b *model.Board, p *model.PiecesMove) (bool, bool) {
+func RookMove(b *model.BoardP, p *model.PiecesMove) (bool, bool) {
 	CanMove := false
 	MoveWhite := false
 	if b.White {

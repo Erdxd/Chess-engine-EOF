@@ -2,7 +2,7 @@ package movegen
 
 import "ChessEngineEOF/internal/model"
 
-func RookMoveGen(b *model.Board, x, y int) []model.PiecesMove {
+func RookMoveGen(b *model.BoardP, x, y int) []model.PiecesMove {
 
 	Moves := []model.PiecesMove{}
 	if b.White {
@@ -18,7 +18,7 @@ func RookMoveGen(b *model.Board, x, y int) []model.PiecesMove {
 	}
 	return Moves
 }
-func forUp(Moves *[]model.PiecesMove, x, y int, b *model.Board, maxstep int) {
+func forUp(Moves *[]model.PiecesMove, x, y int, b *model.BoardP, maxstep int) {
 	for step := 1; step <= maxstep; step++ { // up
 		Uy := y + step
 		if Uy < 0 || Uy > 8 {
@@ -46,7 +46,7 @@ func forUp(Moves *[]model.PiecesMove, x, y int, b *model.Board, maxstep int) {
 		}
 	}
 }
-func forRight(Moves *[]model.PiecesMove, x, y int, b *model.Board, maxstep int) {
+func forRight(Moves *[]model.PiecesMove, x, y int, b *model.BoardP, maxstep int) {
 	for step := 1; step <= maxstep; step++ { // up
 		RX := x + step
 		if RX < 0 || RX > 8 {
@@ -74,7 +74,7 @@ func forRight(Moves *[]model.PiecesMove, x, y int, b *model.Board, maxstep int) 
 		}
 	}
 }
-func forLeft(Moves *[]model.PiecesMove, x, y int, b *model.Board, maxstep int) {
+func forLeft(Moves *[]model.PiecesMove, x, y int, b *model.BoardP, maxstep int) {
 	for step := 1; step <= maxstep; step++ { // up
 		LX := x - step
 		if LX < 0 || LX > 8 {
@@ -102,7 +102,7 @@ func forLeft(Moves *[]model.PiecesMove, x, y int, b *model.Board, maxstep int) {
 		}
 	}
 }
-func forDown(Moves *[]model.PiecesMove, x, y int, b *model.Board, maxstep int) {
+func forDown(Moves *[]model.PiecesMove, x, y int, b *model.BoardP, maxstep int) {
 	for step := 1; step <= maxstep; step++ { // up
 		Dy := y - step
 		if Dy < 0 || Dy > 8 {
@@ -130,7 +130,7 @@ func forDown(Moves *[]model.PiecesMove, x, y int, b *model.Board, maxstep int) {
 
 	}
 }
-func forUpB(Moves *[]model.PiecesMove, x, y int, b *model.Board, maxstep int) {
+func forUpB(Moves *[]model.PiecesMove, x, y int, b *model.BoardP, maxstep int) {
 	for step := 1; step <= maxstep; step++ {
 		Uy := y + step
 		if Uy < 0 || Uy > 8 {
@@ -146,7 +146,7 @@ func forUpB(Moves *[]model.PiecesMove, x, y int, b *model.Board, maxstep int) {
 				Piece: b.Board[x][y],
 			})
 			break
-		} else {
+		} else if b.Board[x][Uy] != 99 {
 			*Moves = append(*Moves, model.PiecesMove{
 				MFX:   x,
 				MFY:   y,
@@ -158,7 +158,7 @@ func forUpB(Moves *[]model.PiecesMove, x, y int, b *model.Board, maxstep int) {
 		}
 	}
 }
-func forRightB(Moves *[]model.PiecesMove, x, y int, b *model.Board, maxstep int) {
+func forRightB(Moves *[]model.PiecesMove, x, y int, b *model.BoardP, maxstep int) {
 	for step := 1; step <= maxstep; step++ { // up
 		RX := x + step
 		if RX < 0 || RX > 8 {
@@ -174,7 +174,7 @@ func forRightB(Moves *[]model.PiecesMove, x, y int, b *model.Board, maxstep int)
 				Piece: b.Board[x][y],
 			})
 			break
-		} else {
+		} else if b.Board[RX][y] != 99 {
 			*Moves = append(*Moves, model.PiecesMove{
 				MFX:   x,
 				MFY:   y,
@@ -186,7 +186,7 @@ func forRightB(Moves *[]model.PiecesMove, x, y int, b *model.Board, maxstep int)
 		}
 	}
 }
-func forLeftB(Moves *[]model.PiecesMove, x, y int, b *model.Board, maxstep int) {
+func forLeftB(Moves *[]model.PiecesMove, x, y int, b *model.BoardP, maxstep int) {
 	for step := 1; step <= maxstep; step++ { // up
 		LX := x - step
 		if LX < 0 || LX > 8 {
@@ -202,7 +202,7 @@ func forLeftB(Moves *[]model.PiecesMove, x, y int, b *model.Board, maxstep int) 
 				Piece: b.Board[x][y],
 			})
 			break
-		} else {
+		} else if b.Board[LX][y] != 99 {
 			*Moves = append(*Moves, model.PiecesMove{
 				MFX:   x,
 				MFY:   y,
@@ -214,7 +214,7 @@ func forLeftB(Moves *[]model.PiecesMove, x, y int, b *model.Board, maxstep int) 
 		}
 	}
 }
-func forDownB(Moves *[]model.PiecesMove, x, y int, b *model.Board, maxstep int) {
+func forDownB(Moves *[]model.PiecesMove, x, y int, b *model.BoardP, maxstep int) {
 	for step := 1; step <= maxstep; step++ { // up
 		Dy := y - step
 		if Dy < 0 || Dy > 8 {
@@ -230,7 +230,7 @@ func forDownB(Moves *[]model.PiecesMove, x, y int, b *model.Board, maxstep int) 
 				Piece: b.Board[x][y],
 			})
 			break
-		} else {
+		} else if b.Board[x][Dy] != 99 {
 			*Moves = append(*Moves, model.PiecesMove{
 				MFX:   x,
 				MFY:   y,

@@ -5,7 +5,7 @@ import (
 	"math"
 )
 
-func KnightMove(b *model.Board, p *model.PiecesMove) (bool, bool) {
+func KnightMove(b *model.BoardP, p *model.PiecesMove) (bool, bool) {
 	CanMove := false
 	MoveWhite := false
 	dy := math.Abs(float64(p.MHY) - float64(p.MFY))

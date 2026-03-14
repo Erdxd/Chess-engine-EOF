@@ -21,7 +21,7 @@ const (
 	Infinity = Mate + 1
 )
 
-func MyPiece(b model.Board, piece int) bool {
+func MyPiece(b model.BoardP, piece int) bool {
 	if piece == 0 {
 		return false
 	}

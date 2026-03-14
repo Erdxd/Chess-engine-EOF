@@ -5,12 +5,12 @@ import (
 	"ChessEngineEOF/internal/pieces"
 )
 
-func LogicOfMovePieces(b *model.Board, p *model.PiecesMove) (bool, bool) {
+func LogicOfMovePieces(b *model.BoardP, p *model.PiecesMove) (bool, bool) {
 	var CanMove bool
 	var WhiteMove bool
 	switch p.Piece {
 	case pieces.Pawn, pieces.PawnE:
-		CanMove, WhiteMove = PawnMoveGenerate(b, p)
+		CanMove, WhiteMove = PawnMove(b, p)
 		return CanMove, WhiteMove
 	case pieces.Knight, pieces.KnightE:
 		CanMove, WhiteMove = KnightMove(b, p)
@@ -31,7 +31,7 @@ func LogicOfMovePieces(b *model.Board, p *model.PiecesMove) (bool, bool) {
 
 	return CanMove, WhiteMove
 }
-func ApplyMove(CanMove bool, MoveWhite bool, b *model.Board, p *model.PiecesMove) (*model.Board, bool) {
+func ApplyMove(CanMove bool, MoveWhite bool, b *model.BoardP, p *model.PiecesMove) (*model.BoardP, bool) {
 	if CanMove {
 
 		if MoveWhite {

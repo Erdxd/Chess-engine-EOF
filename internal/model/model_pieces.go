@@ -1,6 +1,6 @@
 package model
 
-type Board struct {
+type BoardP struct {
 	Board  [10][10]int
 	White  bool
 	Move2W bool

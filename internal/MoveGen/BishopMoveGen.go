@@ -4,7 +4,7 @@ import (
 	"ChessEngineEOF/internal/model"
 )
 
-func BishopMoveGen(b *model.Board, x, y int) []model.PiecesMove {
+func BishopMoveGen(b *model.BoardP, x, y int) []model.PiecesMove {
 	Moves := []model.PiecesMove{}
 	if b.White {
 
@@ -23,7 +23,7 @@ func BishopMoveGen(b *model.Board, x, y int) []model.PiecesMove {
 
 	return Moves
 }
-func forplusplus(Moves *[]model.PiecesMove, x, y int, b *model.Board, maxstep int) {
+func forplusplus(Moves *[]model.PiecesMove, x, y int, b *model.BoardP, maxstep int) {
 	for step := 1; step <= maxstep; step++ {
 		RUX := step + x //right up x
 		RUY := step + y //right up y
@@ -53,7 +53,7 @@ func forplusplus(Moves *[]model.PiecesMove, x, y int, b *model.Board, maxstep in
 
 	}
 }
-func forminusplus(Moves *[]model.PiecesMove, x, y int, b *model.Board, maxstep int) {
+func forminusplus(Moves *[]model.PiecesMove, x, y int, b *model.BoardP, maxstep int) {
 	for stepLU := 1; stepLU <= maxstep; stepLU++ {
 		LUX := x - stepLU //left up x
 		LUY := stepLU + y //left up y
@@ -83,7 +83,7 @@ func forminusplus(Moves *[]model.PiecesMove, x, y int, b *model.Board, maxstep i
 	}
 
 }
-func forminusminus(Moves *[]model.PiecesMove, x, y int, b *model.Board, maxstep int) {
+func forminusminus(Moves *[]model.PiecesMove, x, y int, b *model.BoardP, maxstep int) {
 	for stepLD := 1; stepLD <= maxstep; stepLD++ {
 		LDX := x - stepLD //left up x
 		LDY := y - stepLD //left up y
@@ -112,7 +112,7 @@ func forminusminus(Moves *[]model.PiecesMove, x, y int, b *model.Board, maxstep 
 		}
 	}
 }
-func forplusminus(Moves *[]model.PiecesMove, x, y int, b *model.Board, maxstep int) {
+func forplusminus(Moves *[]model.PiecesMove, x, y int, b *model.BoardP, maxstep int) {
 	for stepRD := 1; stepRD <= maxstep; stepRD++ {
 		RDX := x + stepRD //left up x
 		RDY := y - stepRD //left up y
@@ -140,7 +140,7 @@ func forplusminus(Moves *[]model.PiecesMove, x, y int, b *model.Board, maxstep i
 		}
 	}
 }
-func forplusplusB(Moves *[]model.PiecesMove, x, y int, b *model.Board, maxstep int) {
+func forplusplusB(Moves *[]model.PiecesMove, x, y int, b *model.BoardP, maxstep int) {
 	for step := 1; step <= maxstep; step++ {
 		RUX := step + x //right up x
 		RUY := step + y //right up y
@@ -170,7 +170,7 @@ func forplusplusB(Moves *[]model.PiecesMove, x, y int, b *model.Board, maxstep i
 
 	}
 }
-func forminusplusB(Moves *[]model.PiecesMove, x, y int, b *model.Board, maxstep int) {
+func forminusplusB(Moves *[]model.PiecesMove, x, y int, b *model.BoardP, maxstep int) {
 	for stepLU := 1; stepLU <= maxstep; stepLU++ {
 		LUX := x - stepLU //left up x
 		LUY := stepLU + y //left up y
@@ -198,7 +198,7 @@ func forminusplusB(Moves *[]model.PiecesMove, x, y int, b *model.Board, maxstep 
 		}
 	}
 }
-func forminusminusB(Moves *[]model.PiecesMove, x, y int, b *model.Board, maxstep int) {
+func forminusminusB(Moves *[]model.PiecesMove, x, y int, b *model.BoardP, maxstep int) {
 	for stepLD := 1; stepLD <= maxstep; stepLD++ {
 		LDX := x - stepLD //left up x
 		LDY := y - stepLD //left up y
@@ -227,7 +227,7 @@ func forminusminusB(Moves *[]model.PiecesMove, x, y int, b *model.Board, maxstep
 		}
 	}
 }
-func forplusminusB(Moves *[]model.PiecesMove, x, y int, b *model.Board, maxstep int) {
+func forplusminusB(Moves *[]model.PiecesMove, x, y int, b *model.BoardP, maxstep int) {
 	for stepRD := 1; stepRD <= maxstep; stepRD++ {
 		RDX := x + stepRD //left up x
 		RDY := y - stepRD //left up y

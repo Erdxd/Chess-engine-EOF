@@ -5,7 +5,7 @@ import (
 	"math"
 )
 
-func BishopMove(b *model.Board, p *model.PiecesMove) (bool, bool) {
+func BishopMove(b *model.BoardP, p *model.PiecesMove) (bool, bool) {
 	CanMove := false
 	MoveWhite := true
 	if math.Abs(float64(p.MHX)-float64(p.MFX)) != math.Abs(float64(p.MHY)-float64(p.MFY)) {
