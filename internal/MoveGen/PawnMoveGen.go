@@ -2,17 +2,10 @@ package movegen
 
 import (
 	"ChessEngineEOF/internal/model"
-	"log"
 )
 
 func PawnMoveGenerate(b *model.BoardP, x, y int) []model.PiecesMove {
 	Moves := []model.PiecesMove{}
-	log.Println(Moves)
-	log.Println(x)
-	log.Println(y)
-	log.Println(b.Board[x][y])
-	log.Println(b.Board[7][y])
-	log.Println(b.Board[7][5])
 
 	if b.White {
 		if y < 8 && b.Board[x][y+1] == 0 && b.Board[x][y+1] != 99 {
@@ -144,6 +137,6 @@ func PawnMoveGenerate(b *model.BoardP, x, y int) []model.PiecesMove {
 
 		}
 	}
-	log.Println(Moves)
+
 	return Moves
 }
