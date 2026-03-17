@@ -4,6 +4,7 @@ import (
 	movegen "ChessEngineEOF/internal/MoveGen"
 	"ChessEngineEOF/internal/board"
 	"ChessEngineEOF/internal/evaluate"
+	"ChessEngineEOF/search"
 	"fmt"
 )
 
@@ -14,8 +15,9 @@ func main() {
 	fmt.Println(BoardIinit)
 	moves := movegen.GenerateMoves(BoardIinit)
 	fmt.Println(moves)
-	White, Black := evaluate.EvaluateBoard(boardNew)
-	fmt.Println(White)
-	fmt.Println(Black)
-
+	s := evaluate.EvaluateBoard(BoardIinit)
+	fmt.Println(s)
+	deepth := 1
+	score := search.MiniMax(deepth, BoardIinit, true)
+	fmt.Println(deepth, score)
 }

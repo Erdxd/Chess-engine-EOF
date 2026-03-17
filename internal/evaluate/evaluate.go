@@ -1,8 +1,10 @@
 package evaluate
 
-import "ChessEngineEOF/internal/model"
+import (
+	"ChessEngineEOF/internal/model"
+)
 
-func EvaluateBoard(b *model.BoardP) (int, int) {
+func EvaluateBoard(b *model.BoardP) int {
 	White := 0
 	Black := 0
 	for _, row := range b.Board {
@@ -15,5 +17,9 @@ func EvaluateBoard(b *model.BoardP) (int, int) {
 
 		}
 	}
-	return White, Black
+	if b.White {
+		return White + Black
+	} else {
+		return -1 * (White + Black)
+	}
 }

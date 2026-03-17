@@ -17,7 +17,8 @@ const (
 	RookE    = -500
 	QueenE   = -900
 	KingE    = -2000000
-	Mate     = 1000000000000
+	Mate     = 10000000
+	Draw     = 0505
 	Infinity = Mate + 1
 )
 
