@@ -17,9 +17,5 @@ func EvaluateBoard(b *model.BoardP) int {
 
 		}
 	}
-	if b.White {
-		return White + Black
-	} else {
-		return -1 * (White + Black)
-	}
+	return White + Black
 }

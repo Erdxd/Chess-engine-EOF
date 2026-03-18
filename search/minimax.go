@@ -12,6 +12,7 @@ func MiniMax(deep int, b *model.BoardP, Max bool) int {
 	var CanMove bool
 	if deep == 0 {
 		val := evaluate.EvaluateBoard(b)
+
 		return val
 	}
 	Moves := movegen.GenerateMoves(b)
@@ -34,6 +35,7 @@ func MiniMax(deep int, b *model.BoardP, Max bool) int {
 			} else {
 				continue
 			}
+
 			if score > best {
 				best = score
 			}
