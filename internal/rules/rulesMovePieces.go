@@ -36,27 +36,55 @@ func ApplyMove(CanMove bool, MoveWhite bool, b *model.BoardP, p *model.PiecesMov
 		was := b.Board[p.MHX][p.MHY]
 
 		if MoveWhite {
+			if p.Piece == pieces.Pawn && p.MHX == 8 {
 
-			b.Board[p.MHX][p.MHY] = b.Board[p.MFX][p.MFY]
-			b.Board[p.MFX][p.MFY] = 0
-			b.White = false
-			return b, true, was, model.PiecesMove{
-				MFX:   p.MFX,
-				MFY:   p.MFY,
-				MHX:   p.MHX,
-				MHY:   p.MHY,
-				Piece: b.Board[p.MHX][p.MHY],
+				b.Board[p.MFX][p.MFY] = 0
+				b.Board[p.MHX][p.MHY] = pieces.Queen
+				b.White = false
+				return b, true, was, model.PiecesMove{
+					MFX:   p.MFX,
+					MFY:   p.MFY,
+					MHX:   p.MHX,
+					MHY:   p.MHY,
+					Piece: pieces.Queen,
+				}
+			} else {
+
+				b.Board[p.MHX][p.MHY] = b.Board[p.MFX][p.MFY]
+				b.Board[p.MFX][p.MFY] = 0
+				b.White = false
+				return b, true, was, model.PiecesMove{
+					MFX:   p.MFX,
+					MFY:   p.MFY,
+					MHX:   p.MHX,
+					MHY:   p.MHY,
+					Piece: b.Board[p.MHX][p.MHY],
+				}
 			}
 		} else {
-			b.Board[p.MHX][p.MHY] = b.Board[p.MFX][p.MFY]
-			b.Board[p.MFX][p.MFY] = 0
-			b.White = true
-			return b, true, was, model.PiecesMove{
-				MFX:   p.MFX,
-				MFY:   p.MFY,
-				MHX:   p.MHX,
-				MHY:   p.MHY,
-				Piece: b.Board[p.MHX][p.MHY],
+			if p.Piece == pieces.Pawn && p.MHX == 1 {
+				b.Board[p.MFX][p.MFY] = 0
+				b.Board[p.MHX][p.MHY] = pieces.QueenE
+				b.White = true
+				return b, true, was, model.PiecesMove{
+					MFX:   p.MFX,
+					MFY:   p.MFY,
+					MHX:   p.MHX,
+					MHY:   p.MHY,
+					Piece: pieces.QueenE,
+				}
+			} else {
+
+				b.Board[p.MHX][p.MHY] = b.Board[p.MFX][p.MFY]
+				b.Board[p.MFX][p.MFY] = 0
+				b.White = true
+				return b, true, was, model.PiecesMove{
+					MFX:   p.MFX,
+					MFY:   p.MFY,
+					MHX:   p.MHX,
+					MHY:   p.MHY,
+					Piece: b.Board[p.MHX][p.MHY],
+				}
 			}
 		}
 	} else {
