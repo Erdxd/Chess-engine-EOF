@@ -7,16 +7,29 @@ import (
 )
 
 func IsMate(b *model.BoardP) bool {
-	var mate bool
-	if !IsCheck(b) {
+
+	if IsCheck(b) != true {
 		return false
 	}
-	var LegalMoves []model.PiecesMove
+
 	AllMoves := movegen.GenerateMoves(b)
+
 	for _, move := range AllMoves {
-		if 
+		testBoard := &model.BoardP{}
+		*testBoard = *b
+		testBoard, Can, _, _ := ApplyMove(true, b.White, testBoard, &move)
+		if !Can {
+			continue
+		}
+		if !IsCheck(testBoard) {
+
+			return false
+
+		}
+
 	}
-	return mate
+
+	return true
 }
 func IsCheck(b *model.BoardP) bool {
 	var kingX, kingY int
@@ -31,12 +44,15 @@ func IsCheck(b *model.BoardP) bool {
 
 		}
 	}
+	bcheck := b.White
 	b.White = !b.White
+
 	moves := movegen.GenerateMoves(b)
 	for _, move := range moves {
 		if move.MHX == kingX && move.MHY == kingY {
 			return true
 		}
 	}
+	b.White = bcheck
 	return false
 }
