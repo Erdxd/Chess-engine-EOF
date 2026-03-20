@@ -8,7 +8,14 @@ import (
 
 func IsMate(b *model.BoardP) bool {
 	var mate bool
-
+	if !IsCheck(b) {
+		return false
+	}
+	var LegalMoves []model.PiecesMove
+	AllMoves := movegen.GenerateMoves(b)
+	for _, move := range AllMoves {
+		if 
+	}
 	return mate
 }
 func IsCheck(b *model.BoardP) bool {
