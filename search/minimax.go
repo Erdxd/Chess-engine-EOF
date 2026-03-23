@@ -4,22 +4,40 @@ import (
 	movegen "ChessEngineEOF/internal/MoveGen"
 	"ChessEngineEOF/internal/evaluate"
 	"ChessEngineEOF/internal/model"
+	"ChessEngineEOF/internal/pieces"
 	"ChessEngineEOF/internal/rules"
 )
 
 func MiniMax(deep int, b *model.BoardP, Max bool) int {
 	var best int
+
 	var CanMove bool
 	if deep == 0 {
 		val := evaluate.EvaluateBoard(b)
 
 		return val
 	}
+	King, check := rules.IsCheck(b)
 	Moves := movegen.GenerateMoves(b)
-	if len(Moves) == 0 && rules.IsMate(b) {
-		return evaluate.EvaluateBoard(b)
-	} else if len(Moves) == 0 {
-		return evaluate.EvaluateBoard(b)
+	if b.White {
+
+		if len(Moves) == 0 && rules.IsMate(b) {
+			return pieces.Mate
+
+		} else if !King {
+			return pieces.Mate
+		} else if len(Moves) == 0 && !check {
+			return 0
+		}
+	} else {
+		if len(Moves) == 0 && rules.IsMate(b) {
+			return -pieces.Mate
+
+		} else if !King {
+			return -pieces.Mate
+		} else if len(Moves) == 0 && !check {
+			return 0
+		}
 	}
 	if len(Moves) != 0 {
 		CanMove = true

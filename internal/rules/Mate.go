@@ -8,7 +8,11 @@ import (
 
 func IsMate(b *model.BoardP) bool {
 
-	if IsCheck(b) != true {
+	kingfound, check := IsCheck(b)
+	if !kingfound {
+		return true
+	}
+	if !check {
 		return false
 	}
 
@@ -21,25 +25,29 @@ func IsMate(b *model.BoardP) bool {
 		if !Can {
 			continue
 		}
-		if !IsCheck(testBoard) {
-
+		kingfound, check := IsCheck(testBoard)
+		if !kingfound {
+			return true
+		}
+		if !check {
 			return false
-
 		}
 
 	}
 
 	return true
 }
-func IsCheck(b *model.BoardP) bool {
+func IsCheck(b *model.BoardP) (bool, bool) {
 	var kingX, kingY int
-
+	kingfound := false
 	for x := 0; x <= 8; x++ {
 		for y := 0; y <= 8; y++ {
 			if b.Board[x][y] == pieces.King && b.White {
 				kingX, kingY = x, y
+				kingfound = true
 			} else if b.Board[x][y] == pieces.KingE && !b.White {
 				kingX, kingY = x, y
+				kingfound = true
 			}
 
 		}
@@ -50,9 +58,9 @@ func IsCheck(b *model.BoardP) bool {
 	moves := movegen.GenerateMoves(b)
 	for _, move := range moves {
 		if move.MHX == kingX && move.MHY == kingY {
-			return true
+			return kingfound, true
 		}
 	}
 	b.White = bcheck
-	return false
+	return kingfound, false
 }

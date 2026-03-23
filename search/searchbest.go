@@ -6,12 +6,13 @@ import (
 	"ChessEngineEOF/internal/rules"
 )
 
-func TheBestMove(b *model.BoardP, deep int) model.PiecesMove {
+func TheBestMove(b *model.BoardP, deep int) (model.PiecesMove, int) {
 	BestMove := model.PiecesMove{}
+	var bestscore int
 	Moves := movegen.GenerateMoves(b)
 	if b.White {
 
-		bestscore := -999999
+		bestscore = -999999
 
 		for _, move := range Moves {
 			b, wasmove, waspieces, Move := rules.ApplyMove(true, b.White, b, &move)
@@ -26,9 +27,9 @@ func TheBestMove(b *model.BoardP, deep int) model.PiecesMove {
 				BestMove = move
 			}
 		}
-		return BestMove
+		return BestMove, bestscore
 	} else {
-		bestScore := 9999999 // Ищем самое маленькое число
+		bestscore = 9999999 // Ищем самое маленькое число
 		for _, move := range Moves {
 			b, wasMove, wasPiece, pStr := rules.ApplyMove(true, b.White, b, &move)
 			if !wasMove {
@@ -38,12 +39,12 @@ func TheBestMove(b *model.BoardP, deep int) model.PiecesMove {
 			score := MiniMax(deep-1, b, true) // Следующий ход белых (Max)
 			*b = rules.UndoMove(b, wasPiece, &pStr)
 
-			if score < bestScore {
-				bestScore = score
+			if score < bestscore {
+				bestscore = score
 				BestMove = move
 			}
 		}
 
 	}
-	return BestMove
+	return BestMove, bestscore
 }

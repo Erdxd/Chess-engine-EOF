@@ -6,7 +6,7 @@ import (
 )
 
 func Fork1(b *model.BoardP) *model.BoardP {
-	for x := 0; x <= 8; x++ {
+	for x := 1; x <= 8; x++ {
 		for y := 0; y <= 8; y++ {
 			b.Board[x][y] = 0
 		}
@@ -20,7 +20,7 @@ func Fork1(b *model.BoardP) *model.BoardP {
 
 }
 func Fork2(b *model.BoardP) *model.BoardP {
-	for x := 0; x <= 8; x++ {
+	for x := 1; x <= 8; x++ {
 		for y := 0; y <= 8; y++ {
 			b.Board[x][y] = 0
 		}
@@ -33,7 +33,7 @@ func Fork2(b *model.BoardP) *model.BoardP {
 
 }
 func Fork3(b *model.BoardP) *model.BoardP {
-	for x := 0; x <= 8; x++ {
+	for x := 1; x <= 8; x++ {
 		for y := 0; y <= 8; y++ {
 			b.Board[x][y] = 0
 		}
